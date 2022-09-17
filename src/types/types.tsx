@@ -18,7 +18,6 @@ export interface PersonalError {
   dob: null | string;
   gender: null | string;
 }
-
 export interface Education {
   details: EducationInfo;
   errors: EducationError;
@@ -57,4 +56,21 @@ export interface ProfessionalError {
   jobName: string | null;
   experiance: string | null;
   skills: string | null;
+}
+
+export interface AllDataTogether {
+  name: string;
+  email: string;
+  mobileNumber: null | number | string;
+  dob: string;
+  gender: null;
+  sscResult: number | null;
+  hscResult: number | null;
+  univercityName: string;
+  passingYear: number | null;
+  cgpa: number | null;
+  jobTitle: string;
+  jobName: string;
+  experiance: null | number;
+  skills: string;
 }

@@ -26,7 +26,9 @@ input::-webkit-inner-spin-button {
 }
 .genderError {
   color: red;
-  padding-top: 3px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 /* Firefox */
 input[type="number"] {
@@ -34,6 +36,7 @@ input[type="number"] {
 }
 input[type="date"] {
   flex-direction: row;
+  cursor: pointer;
 }
 .contain {
   padding: 10px;
@@ -42,6 +45,7 @@ input[type="date"] {
 .form {
   display: flex;
   padding: 10px;
+  gap: 5px;
   flex-direction: column;
   width: 380px;
   height: 300px;
@@ -51,7 +55,6 @@ input[type="date"] {
   border-color: #e5e5e5;
   border-style: solid;
   border-width: 0.5px;
-  margin-bottom: 10px;
   padding: 10px;
 }
 .formSubmit {
@@ -113,4 +116,7 @@ input[type="date"] {
   border-style: solid;
   border-color: #03045e;
   width: 85px;
+}
+button {
+  cursor: pointer;
 }

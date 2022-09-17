@@ -1,4 +1,5 @@
 import React, { useReducer, useState } from "react";
+import DownloadPdf from "../components/downloadpdf/DownloadPdf";
 import ProgressBar from "../components/ProgressBar";
 import StepOne from "../components/stepform/stepone/StepOne";
 import StepThree from "../components/stepform/stepthree/StepThree";
@@ -75,12 +76,12 @@ const StepForm = () => {
           />
         </div>
         <div className="body">
-          <h3>Multi Step Form using ReactJS</h3>
           <div className="wrapper">
             <ProgressBar />
             {step === 0 && <StepOne />}
             {step === 1 && <StepTwo />}
             {step === 2 && <StepThree />}
+            {step === 3 && <DownloadPdf />}
           </div>
         </div>
       </div>
