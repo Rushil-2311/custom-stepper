@@ -1,18 +1,33 @@
 import { useContext } from "react";
 import AppContext from "../../../context/Contex";
-import {
-  EmaptyAllErrors,
-  setErrorsToForm,
-  setValueToForm,
-} from "../../../helper/helperMethod";
+import { setErrorsToForm, setValueToForm } from "../../../helper/helperMethod";
 import "../../../styles.css";
 import AppInput from "../../common/AppInput";
 
 const StepThree = () => {
   const myContext: any = useContext(AppContext);
   const updateContext = myContext.userDetails;
-
-  const next = () => {
+  const EmaptyAllProfessionalErrors = (
+    updateContext: any,
+    updateStateName: string
+  ) => {
+    updateContext[updateStateName]((prev: any) => {
+      return {
+        details: {
+          ...prev.details,
+        },
+        errors: {
+          name: null,
+          email: null,
+          mobileNumber: null,
+          dob: null,
+          gender: null,
+        },
+      };
+    });
+  };
+  const checkErrors = () => {
+    let status = false;
     if (updateContext.professional.details.jobTitle === null) {
       setErrorsToForm(
         "name",
@@ -20,6 +35,7 @@ const StepThree = () => {
         updateContext,
         "setProfessional"
       );
+      status = true;
     }
     if (updateContext.professional.details.experiance === null) {
       setErrorsToForm(
@@ -28,13 +44,28 @@ const StepThree = () => {
         updateContext,
         "setProfessional"
       );
+      status = true;
     }
-    updateContext.setStep(updateContext.currentPage + 1);
+    return status;
+  };
+  const next = () => {
+    EmaptyAllProfessionalErrors(updateContext, "setProfessional");
+    if (checkErrors()) {
+      return;
+    }
+    let objArray = Object.keys(updateContext.professional.errors);
+    for (let i = 0; i < objArray.length; i++) {
+      if (updateContext.professional.errors[objArray[i]] !== null) {
+        checkErrors();
+        return;
+      }
+    }
+    return updateContext.setStep(updateContext.currentPage + 1);
   };
 
   return (
     <div className="contain">
-      <p>Enter Your Details</p>
+      <p>Enter Your Professional Details</p>
       <form className="form">
         <AppInput
           type="text"
@@ -82,7 +113,7 @@ const StepThree = () => {
           required
         />
         <AppInput
-          type="date"
+          type="text"
           errorText={updateContext.professional.errors.skills}
           value={updateContext.professional.details.skills}
           placeholder="skills"
@@ -96,9 +127,20 @@ const StepThree = () => {
           }
           required
         />
-        <button type="button" className="formSubmit" onClick={next}>
-          Next
-        </button>
+        <div className="buttonContainer">
+          <button
+            type="button"
+            className="formSubmit"
+            onClick={() => {
+              updateContext.setStep(updateContext.currentPage - 1);
+            }}
+          >
+            Back
+          </button>
+          <button type="button" className="formSubmit" onClick={next}>
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

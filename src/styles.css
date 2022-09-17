@@ -17,16 +17,23 @@
   box-shadow: 0 10px 10px rgb(0 0 0 / 0.2);
   align-items: center;
   width: 500px;
+  height: 615px;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
+.genderError {
+  color: red;
+  padding-top: 3px;
+}
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+input[type="date"] {
+  flex-direction: row;
 }
 .contain {
   padding: 10px;
@@ -66,7 +73,11 @@ input[type="number"] {
   width: 120px;
   padding: 5px;
 }
-
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .formSelect {
   width: 403px;
   border-radius: 5px;

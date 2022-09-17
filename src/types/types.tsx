@@ -39,3 +39,22 @@ export interface EducationError {
   passingYear: null | string;
   cgpa: null | string;
 }
+
+export interface Professional {
+  details: ProfessionalInfo;
+  errors: ProfessionalError;
+}
+
+export interface ProfessionalInfo {
+  jobTitle: string;
+  jobName: string;
+  experiance: null | number;
+  skills: string;
+}
+
+export interface ProfessionalError {
+  jobTitle: string | null;
+  jobName: string | null;
+  experiance: string | null;
+  skills: string | null;
+}

@@ -5,7 +5,7 @@ import StepThree from "../components/stepform/stepthree/StepThree";
 import StepTwo from "../components/stepform/steptwo/StepTwo";
 import AppContext from "../context/Contex";
 import "../styles.css";
-import { Education, PersonalDetails } from "../types/types";
+import { Education, PersonalDetails, Professional } from "../types/types";
 
 const StepForm = () => {
   const [step, setStep] = useState(0);
@@ -41,11 +41,11 @@ const StepForm = () => {
       cgpa: null,
     },
   });
-  const [professional, setProfessional] = useState({
+  const [professional, setProfessional] = useState<Professional>({
     details: {
       jobTitle: "",
       jobName: "",
-      experiance: "",
+      experiance: null,
       skills: "",
     },
     errors: {
@@ -78,9 +78,9 @@ const StepForm = () => {
           <h3>Multi Step Form using ReactJS</h3>
           <div className="wrapper">
             <ProgressBar />
-            {/* {step === 0 && <StepOne />} */}
-            {/* {step === 0 && <StepTwo />} */}
-            {step === 0 && <StepThree />}
+            {step === 0 && <StepOne />}
+            {step === 1 && <StepTwo />}
+            {step === 2 && <StepThree />}
           </div>
         </div>
       </div>

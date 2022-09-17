@@ -1,19 +1,33 @@
 import { useContext } from "react";
 import AppContext from "../../../context/Contex";
-import {
-  EmaptyAllErrors,
-  setErrorsToForm,
-  setValueToForm,
-} from "../../../helper/helperMethod";
+import { setErrorsToForm, setValueToForm } from "../../../helper/helperMethod";
 import "../../../styles.css";
 import AppInput from "../../common/AppInput";
 
 const StepTwo = () => {
   const myContext: any = useContext(AppContext);
   const updateContext = myContext.userDetails;
-
-  const next = () => {
-    console.log(updateContext.education.details, "hey name");
+  const EmaptyAlEducationErrors = (
+    updateContext: any,
+    updateStateName: string
+  ) => {
+    updateContext[updateStateName]((prev: any) => {
+      return {
+        details: {
+          ...prev.details,
+        },
+        errors: {
+          sscResult: null,
+          hscResult: null,
+          univercityName: null,
+          passingYear: null,
+          cgpa: null,
+        },
+      };
+    });
+  };
+  const checkErrors = () => {
+    let status = false;
     if (updateContext.education.details.univercityName === "") {
       setErrorsToForm(
         "univercityName",
@@ -21,6 +35,7 @@ const StepTwo = () => {
         updateContext,
         "setEducation"
       );
+      status = true;
     }
     if (updateContext.education.details.passingYear === null) {
       setErrorsToForm(
@@ -29,6 +44,7 @@ const StepTwo = () => {
         updateContext,
         "setEducation"
       );
+      status = true;
     }
     if (
       updateContext.education.details.cgpa === null ||
@@ -40,12 +56,28 @@ const StepTwo = () => {
         updateContext,
         "setEducation"
       );
-    } else updateContext.setStep(updateContext.currentPage + 1);
+      status = true;
+    }
+    return status;
+  };
+  const next = () => {
+    EmaptyAlEducationErrors(updateContext, "setEducation");
+    if (checkErrors()) {
+      return;
+    }
+    let objArray = Object.keys(updateContext.education.errors);
+    for (let i = 0; i < objArray.length; i++) {
+      if (updateContext.education.errors[objArray[i]] !== null) {
+        checkErrors();
+        return;
+      }
+    }
+    return updateContext.setStep(updateContext.currentPage + 1);
   };
 
   return (
     <div className="contain">
-      <p>Enter Your Details</p>
+      <p>Enter Your Education Details</p>
       <form className="form">
         <AppInput
           type="number"
@@ -114,7 +146,7 @@ const StepTwo = () => {
           placeholder="Provide us your cgpa"
           onChange={(e: any) =>
             setValueToForm(
-              "passingYear",
+              "cgpa",
               e.target.value,
               updateContext,
               "setEducation"
@@ -122,9 +154,20 @@ const StepTwo = () => {
           }
           required
         />
-        <button type="button" className="formSubmit" onClick={next}>
-          Next
-        </button>
+        <div className="buttonContainer">
+          <button
+            type="button"
+            className="formSubmit"
+            onClick={() => {
+              updateContext.setStep(updateContext.currentPage - 1);
+            }}
+          >
+            Back
+          </button>
+          <button type="button" className="formSubmit" onClick={next}>
+            Next
+          </button>
+        </div>
       </form>
     </div>
   );
