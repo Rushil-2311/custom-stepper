@@ -1,19 +1,34 @@
 import { useContext } from "react";
 import AppContext from "../../../context/Contex";
-import {
-  EmaptyAllErrors,
-  setErrorsToForm,
-  setValueToForm,
-} from "../../../helper/helperMethod";
+import { setErrorsToForm, setValueToForm } from "../../../helper/helperMethod";
 import "../../../styles.css";
 import AppInput from "../../common/AppInput";
 
 const StepOne = () => {
   const myContext: any = useContext(AppContext);
   const updateContext = myContext.userDetails;
-
-  const next = () => {
+  const EmaptyAllPersonalErrors = (
+    updateContext: any,
+    updateStateName: string
+  ) => {
+    updateContext[updateStateName]((prev: any) => {
+      return {
+        details: {
+          ...prev.details,
+        },
+        errors: {
+          name: null,
+          email: null,
+          mobileNumber: null,
+          dob: null,
+          gender: null,
+        },
+      };
+    });
+  };
+  const checkErrors = () => {
     const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+    let status = false;
     if (updateContext.personalDetails.details.name === "") {
       setErrorsToForm(
         "name",
@@ -21,6 +36,7 @@ const StepOne = () => {
         updateContext,
         "setPersonalDetails"
       );
+      status = true;
     }
     if (
       updateContext.personalDetails.details.email === "" ||
@@ -32,6 +48,7 @@ const StepOne = () => {
         updateContext,
         "setPersonalDetails"
       );
+      status = true;
     }
     if (updateContext.personalDetails.details.dob === "") {
       setErrorsToForm(
@@ -40,6 +57,7 @@ const StepOne = () => {
         updateContext,
         "setPersonalDetails"
       );
+      status = true;
     }
     if (updateContext.personalDetails.details.gender === null) {
       setErrorsToForm(
@@ -48,10 +66,11 @@ const StepOne = () => {
         updateContext,
         "setPersonalDetails"
       );
+      status = true;
     }
     if (
       updateContext.personalDetails.details.mobileNumber === null ||
-      updateContext.personalDetails.details.mobileNumber !== 10
+      updateContext.personalDetails.details.mobileNumber.length !== 10
     ) {
       setErrorsToForm(
         "mobileNumber",
@@ -59,12 +78,28 @@ const StepOne = () => {
         updateContext,
         "setPersonalDetails"
       );
-    } else updateContext.setStep(updateContext.currentPage + 1);
+      status = true;
+    }
+    return status;
+  };
+  const next = () => {
+    EmaptyAllPersonalErrors(updateContext, "setPersonalDetails");
+    if (checkErrors()) {
+      return;
+    }
+    let objArray = Object.keys(updateContext.personalDetails.errors);
+    for (let i = 0; i < objArray.length; i++) {
+      if (updateContext.personalDetails.errors[objArray[i]] !== null) {
+        checkErrors();
+        return;
+      }
+    }
+    return updateContext.setStep(updateContext.currentPage + 1);
   };
 
   return (
     <div className="contain">
-      <p>Enter Your Details</p>
+      <p>Enter Your Personal Details</p>
       <form className="form">
         <AppInput
           type="text"
@@ -146,6 +181,11 @@ const StepOne = () => {
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
+        {updateContext.personalDetails.errors.gender !== null && (
+          <div className="genderError">
+            {updateContext.personalDetails.errors.gender}
+          </div>
+        )}
         <button type="button" className="formSubmit" onClick={next}>
           Next
         </button>

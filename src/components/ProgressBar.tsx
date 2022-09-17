@@ -11,7 +11,7 @@ const ProgressBar = () => {
   const background = {
     backgroundColor: "#dee2e6",
     height: 8,
-    width: 400,
+    width: 300,
     borderRadius: 20,
   };
 
@@ -29,7 +29,7 @@ const ProgressBar = () => {
 
   return (
     <div>
-      <p style={text}>{percentage} of 4 completed</p>
+      <p style={text}>{percentage} of 3 completed</p>
       <div style={background}>
         <div style={progress}></div>
       </div>
