@@ -65,13 +65,6 @@ const StepTwo = () => {
     if (checkErrors()) {
       return;
     }
-    let objArray = Object.keys(updateContext.education.errors);
-    for (let i = 0; i < objArray.length; i++) {
-      if (updateContext.education.errors[objArray[i]] !== null) {
-        checkErrors();
-        return;
-      }
-    }
     return updateContext.setStep(updateContext.currentPage + 1);
   };
 

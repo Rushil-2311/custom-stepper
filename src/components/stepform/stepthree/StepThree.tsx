@@ -53,13 +53,6 @@ const StepThree = () => {
     if (checkErrors()) {
       return;
     }
-    let objArray = Object.keys(updateContext.professional.errors);
-    for (let i = 0; i < objArray.length; i++) {
-      if (updateContext.professional.errors[objArray[i]] !== null) {
-        checkErrors();
-        return;
-      }
-    }
     return updateContext.setStep(updateContext.currentPage + 1);
   };
 

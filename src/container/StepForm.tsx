@@ -69,12 +69,6 @@ const StepForm = () => {
   return (
     <AppContext.Provider value={{ userDetails }}>
       <div className="main">
-        <div className="navbar">
-          <img
-            src="https://www.vectorlogo.zone/logos/dartlang/dartlang-ar21.svg"
-            alt="logo"
-          />
-        </div>
         <div className="body">
           <div className="wrapper">
             <ProgressBar />

@@ -87,13 +87,6 @@ const StepOne = () => {
     if (checkErrors()) {
       return;
     }
-    let objArray = Object.keys(updateContext.personalDetails.errors);
-    for (let i = 0; i < objArray.length; i++) {
-      if (updateContext.personalDetails.errors[objArray[i]] !== null) {
-        checkErrors();
-        return;
-      }
-    }
     return updateContext.setStep(updateContext.currentPage + 1);
   };
 
