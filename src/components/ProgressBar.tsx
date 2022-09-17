@@ -23,7 +23,7 @@ const ProgressBar = () => {
   };
 
   const text = {
-    fontSize: 12,
+    fontSize: 14,
     color: "#8d99ae",
   };
 

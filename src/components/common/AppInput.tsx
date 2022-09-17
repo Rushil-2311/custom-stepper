@@ -23,6 +23,7 @@ const AppInput: FunctionComponent<appInputProps> = ({
       <input
         className="formInput"
         type={type ? type : "text"}
+        style={{ paddingBlock: type === "date" ? "19px" : "11px" }}
         value={value}
         onChange={onChange}
         placeholder={placeholder}

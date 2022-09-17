@@ -132,7 +132,7 @@ const StepOne = () => {
           required
         />
         <AppInput
-          type="text"
+          type="number"
           errorText={updateContext.personalDetails.errors.mobileNumber}
           value={updateContext.personalDetails.details.mobileNumber}
           placeholder="Enter Your Mobile Number"
