@@ -1,5 +1,7 @@
-import React, { useReducer, useState } from "react";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { useState } from "react";
 import DownloadPdf from "../components/downloadpdf/DownloadPdf";
+import Pdf from "../components/pdf/Pdf";
 import ProgressBar from "../components/ProgressBar";
 import StepOne from "../components/stepform/stepone/StepOne";
 import StepThree from "../components/stepform/stepthree/StepThree";
@@ -75,7 +77,16 @@ const StepForm = () => {
             {step === 0 && <StepOne />}
             {step === 1 && <StepTwo />}
             {step === 2 && <StepThree />}
-            {step === 3 && <DownloadPdf />}
+            {Object.keys(userDetails).length > 0 && (
+              <PDFDownloadLink
+                document={<Pdf myContext={{ userDetails }} />}
+                fileName="fillForm.pdf"
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "Loading document..." : "Download pdf now!"
+                }
+              </PDFDownloadLink>
+            )}
           </div>
         </div>
       </div>
